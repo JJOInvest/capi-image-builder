@@ -400,7 +400,7 @@ HCLOUD_BUILD_NAMES ?= hcloud-ubuntu-2004 hcloud-ubuntu-2204 hcloud-ubuntu-2404 h
 
 PROXMOX_BUILD_NAMES 		?= proxmox-ubuntu-2204 proxmox-ubuntu-2404 proxmox-ubuntu-2404-efi proxmox-rockylinux-9 proxmox-flatcar
 
-VULTR_BUILD_NAMES 				?=	vultr-ubuntu-2204
+VULTR_BUILD_NAMES 				?=	vultr-ubuntu-2204 vultr-ubuntu-2410
 
 MAAS_BUILD_NAMES 			?= maas-ubuntu-2204-efi maas-ubuntu-2404-efi
 
@@ -918,6 +918,7 @@ build-proxmox-ubuntu-2404-efi: ## Builds the Proxmox ubuntu-2404-efi image that 
 build-proxmox-rockylinux-9: ## Builds the Proxmox rockylinux-9 image
 
 build-vultr-ubuntu-2204: ## Builds Ubuntu 22.04 Vultr Snapshot
+build-vultr-ubuntu-2410: ## Builds Ubuntu 24.10 Vultr Snapshot
 
 ## --------------------------------------
 ## Document dynamic validate targets

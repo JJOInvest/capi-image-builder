@@ -120,6 +120,10 @@ common_virt_debs:
   - linux-tools-virtual
   - open-vm-tools
 
+common_virt_debian_debs:
+  - cloud-init
+  - open-vm-tools
+
 common_virt_photon_rpms:
   - open-vm-tools
 

@@ -74,8 +74,8 @@
     "kubernetes_semver": null,
     "kubernetes_series": null,
     "kubernetes_source_type": null,
-    "os": "1743",
+    "os": "{{user `vultr_os_id`}}",
     "plan": "vc2-1c-1gb",
-    "region": "ewr"
+    "region": "ams"
   }
 }

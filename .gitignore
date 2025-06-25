@@ -1,3 +1,6 @@
 .vscode/
 .idea/
 .venv/
+
+images/capi/ssh_id_rsa
+images/capi/hosts
