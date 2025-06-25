@@ -112,15 +112,35 @@
     mode: "0644"
   when: ansible_os_family != "Flatcar"
 
-# `feature_overrides.py` only works on old cloud-init versions (removed in https://github.com/canonical/cloud-init/pull/4228)...
-- name: Set cloudinit feature flags
+#Find where cloudinit is installed
+- name: Find cloudinit directory
+  ansible.builtin.find:
+    paths: "/"
+    file_type: directory
+    patterns: "cloudinit"
+    recurse: yes
+  register: cloudinit_dir_matches
+  when: ansible_os_family == "Debian"
+
+- name: Set cloudinit feature flags into cloudinit directories
   ansible.builtin.copy:
     src: usr/lib/python3/dist-packages/cloudinit/feature_overrides.py
-    dest: /usr/lib/python3/dist-packages/cloudinit/feature_overrides.py
+    dest: "{{ item.path }}/feature_overrides.py"
     owner: root
     group: root
     mode: "0644"
+  with_items: "{{ cloudinit_dir_matches.files | rejectattr('path', 'search', 'tests') | rejectattr('path', 'search', 'build') | list }}"
   when: ansible_os_family == "Debian"
+
+# `feature_overrides.py` only works on old cloud-init versions (removed in https://github.com/canonical/cloud-init/pull/4228)...
+# - name: Set cloudinit feature flags
+#   ansible.builtin.copy:
+#     src: usr/lib/python3/dist-packages/cloudinit/feature_overrides.py
+#     dest: /usr/lib/python3/dist-packages/cloudinit/feature_overrides.py
+#     owner: root
+#     group: root
+#     mode: "0644"
+#   when: ansible_os_family == "Debian"
 
 - name: Set cloudinit feature flags for redhat 8
   ansible.builtin.copy:
@@ -143,10 +163,18 @@
 # ...and `features.py` must be patched instead
 - name: Patch cloud-init feature flags for Debian-based OS
   ansible.builtin.blockinfile:
-    path: /usr/lib/python3/dist-packages/cloudinit/features.py
+    path: "{{ item.path }}/features.py"
     marker: "# {mark} ANSIBLE MANAGED BLOCK (by image-builder)"
     block: "{{ lookup('file', 'cloud-init-features.patch') }}"
+  with_items: "{{ cloudinit_dir_matches.files | rejectattr('path', 'search', 'tests') | rejectattr('path', 'search', 'build') | list }}"
   when: ansible_os_family == "Debian"
+
+# - name: Patch cloud-init feature flags for Debian-based OS
+#   ansible.builtin.blockinfile:
+#     path: /usr/lib/python3/dist-packages/cloudinit/features.py
+#     marker: "# {mark} ANSIBLE MANAGED BLOCK (by image-builder)"
+#     block: "{{ lookup('file', 'cloud-init-features.patch') }}"
+#   when: ansible_os_family == "Debian"
 
 - name: Patch cloud-init feature flags for RedHat 9
   ansible.builtin.blockinfile:

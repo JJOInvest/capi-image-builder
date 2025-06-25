@@ -1,0 +1,19 @@
+name: Generate ubuntu-2204-snapshot
+
+on:
+  workflow_dispatch
+
+jobs:
+  prepare-vultr-image:
+    runs-on: [self-hosted, linux, tf-infra-control]
+
+    steps:
+      - name: Checkout kubernetes-sigs/image-builder
+        uses: actions/checkout@v4
+        with:
+          repository: 'kubernetes-sigs/image-builder'
+
+      - name: Build debian-12-snapshot
+        run: |
+          cd images/capi
+          make build-vultr-debian-12
