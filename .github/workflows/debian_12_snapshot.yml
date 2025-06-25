@@ -1,4 +1,4 @@
-name: Generate ubuntu-2204-snapshot
+name: Generate debian-12-snapshot
 
 on:
   workflow_dispatch
