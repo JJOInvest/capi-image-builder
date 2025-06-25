@@ -1,3 +1,6 @@
+# Cluster API Image builder clone
+This is clone of [capi image-builder](https://github.com/kubernetes-sigs/image-builder). It adds debian support and optimization for Vultr provider.
+
 # Image Builder
 
 ## Please see our [Book](https://image-builder.sigs.k8s.io) for more in-depth documentation.
