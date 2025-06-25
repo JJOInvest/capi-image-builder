@@ -10,8 +10,6 @@ jobs:
     steps:
       - name: Checkout kubernetes-sigs/image-builder
         uses: actions/checkout@v4
-        with:
-          repository: 'kubernetes-sigs/image-builder'
 
       - name: Build debian-12-snapshot
         run: |

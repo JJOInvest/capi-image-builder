@@ -1108,6 +1108,8 @@ validate-proxmox-ubuntu-2204: ## Validates Ubuntu 22.04 Proxmox Packer config
 validate-proxmox-flatcar: ## Validates Flatcar Proxmox Packer config
 
 validate-vultr-ubuntu-2204: ## Validates Ubuntu 22.04 Vultr Snapshot Packer config
+validate-vultr-ubuntu-2410: ## Validates Ubuntu 24.10 Vultr Snapshot Packer config
+validate-vultr-debian-12: ## Validates Debian 12 Vultr Snapshot Packer config
 
 validate-all: validate-ami-all \
 	validate-azure-all \
